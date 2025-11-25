@@ -1,3 +1,6 @@
 [submodule "macos/link"]
 	path = macos/link
 	url = https://github.com/ableton/link
+[submodule "ios/Frameworks/LinkKit"]
+	path = ios/Frameworks/LinkKit
+	url = https://github.com/Ableton/LinkKit.git

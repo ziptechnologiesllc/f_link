@@ -15,15 +15,12 @@ On other platforms, uses FFI with the C++ Link library.
   s.author           = { 'anzbert' => 'https://github.com/anzbert' }
   s.source           = { :path => '.' }
 
-  # Flutter plugin classes
-  s.source_files = 'Classes/**/*'
+  # Flutter plugin classes + LinkKit source
+  s.source_files = 'Classes/**/*', 'Frameworks/LinkKit/LinkKit/**/*.{h,mm}'
   s.public_header_files = 'Classes/**/*.h'
 
-  # Pre-built LinkKit xcframework
-  s.vendored_frameworks = 'Frameworks/LinkKit/LinkKit.xcframework'
-
   # LinkKit resources
-  s.resources = 'Frameworks/LinkKit/LinkKitResources.bundle'
+  s.resources = 'Frameworks/LinkKit/LinkKit/LinkKitResources.bundle'
 
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'
@@ -31,7 +28,9 @@ On other platforms, uses FFI with the C++ Link library.
   # Flutter configuration
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
-    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386'
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386',
+    'HEADER_SEARCH_PATHS' => '"$(PODS_TARGET_SRCROOT)/Frameworks/LinkKit/LinkKit" "$(PODS_TARGET_SRCROOT)/Frameworks/LinkKit/LinkKit/detail" "$(PODS_TARGET_SRCROOT)/../macos/link/include" "$(PODS_TARGET_SRCROOT)/../macos/link/modules/asio-standalone/asio/include"',
+    'GCC_PREPROCESSOR_DEFINITIONS' => '$(inherited) LINK_PLATFORM_MACOSX=1'
   }
 
   s.swift_version = '5.0'
